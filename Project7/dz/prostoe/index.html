@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+
+  <style>
+      #round {
+        width: 100px;
+        height: 100px;
+        background: red;
+        border-radius: 50%;
+        position: relative;
+      }
+
+      #secondround {
+        width: 100px;
+        height: 100px;
+        background: green;
+        border-radius: 50%;
+        position: relative;
+      }
+
+    </style>
+
+</head>
+<body>
+  
+  <div id ="round"></div>
+  <div id ="secondround"></div>
+
+  <script>
+
+    var stepleft = 0;
+    var el = document.getElementById("round");
+    var elem = document.getElementById("secondround");
+
+    function move () {
+      stepleft +=5;
+      el.style.left = stepleft + "px";
+      elem.style.top = stepleft + "px";
+      requestAnimationFrame(move);
+    }
+    requestAnimationFrame(move);
+    /* var startPos = 0;
+    var startDate = Date.now();
+
+    var anim = setInterval( function (){
+      var timeDuration = Date.now() - startDate;
+      if (timeDuration > 2000) {
+        clearInterval (anim);
+        return;
+      }
+      console.log(timeDuration);
+      startPos +=5;
+      document.getElementById("round").style.left = timeDuration/5 + "px"; 
+
+    });
+
+      var animation = setInterval( function (){
+      var timeDuration = Date.now() - startDate;
+      if (timeDuration > 2000) {
+        clearInterval (animation);
+        return;
+      }
+      console.log(timeDuration);
+      startPos +=5;
+      document.getElementById("secondround").style.top = timeDuration/5 + "px"; 
+
+    }); */
+    
+    </script>
+
+</body>
+</html>

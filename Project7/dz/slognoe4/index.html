@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    img {
+      cursor: pointer;
+    }
+  </style>
+  <style>
+    #flyjet {
+      width: 40px;
+      height: 24px;
+    }
+    
+    #flyjet.animate {
+      transition: all 3s cubic-bezier(0, 0, .45, 1.77);
+      width: 400px;
+      height: 240px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <img id="flyjet" src="https://js.cx/clipart/flyjet.jpg">
+
+  <script>
+    var elem = document.querySelector('#flyjet');
+
+    elem.addEventListener('click', function myClick(e) {
+      e.target.addEventListener('transitionend', function myTransitionend() {
+        alert('Готово!');
+        e.target.removeEventListener('transitionend', myTransitionend);
+      });
+
+      e.target.classList.add('animate');
+      e.target.removeEventListener('click', myClick);
+    });
+  </script>
+</body>
+
+</html>

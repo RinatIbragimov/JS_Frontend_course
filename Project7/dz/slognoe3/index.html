@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <script src="https://js.cx/libs/animate.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+
+  <div id="field">
+    <img src="https://js.cx/clipart/ball.svg" width="40" height="40" id="ball">
+  </div>
+
+<script>
+  function animate(options) {
+    var start = performance.now();
+  
+    requestAnimationFrame(function animate(time) {
+      var timeFraction = (time - start) / options.duration;
+      if (timeFraction > 1) timeFraction = 1;
+  
+      var progress = options.timing(timeFraction)
+  
+      options.draw(progress);
+  
+      if (timeFraction < 1) {
+        requestAnimationFrame(animate);
+      }
+    });
+  }
+  function bounce(timeFraction) {
+    for (var a = 0, b = 1, result; 1; a += b, b /= 2) {
+      if (timeFraction >= (7 - 4 * a) / 11) {
+        return -Math.pow((11 - 6 * a - 11 * timeFraction) / 4, 2) + Math.pow(b, 2);
+      }
+    }
+  }
+  function quad(timeFraction) {
+    return Math.pow(timeFraction, 2)
+  }
+  function makeEaseOut(timing) {
+    return function(timeFraction) {
+      return 1 - timing(1 - timeFraction);
+    }
+  }
+
+  var ball = document.querySelector('#ball');
+  var field = ball.parentElement;
+  
+  var height = field.clientHeight - ball.offsetHeight;
+  var bounceOut = makeEaseOut(bounce);
+  var quadOut = makeEaseOut(quad);
+  
+  ball.addEventListener('click', function myClick() {
+    var myTime = 2000;
+    animate({
+      duration: myTime,
+      timing: bounceOut,
+      draw: function(progress) {
+        ball.style.top = progress * height + 'px';
+      }
+    });
+    animate({
+      duration: myTime,
+      timing: quadOut,
+      draw: function(progress) {
+        ball.style.left = progress * 200 + 'px';
+        ball.style.transform = 'rotate(' + progress * 120 + 'deg)';
+      }
+    });
+  });
+</script>
+
+</body>
+
+</html>
